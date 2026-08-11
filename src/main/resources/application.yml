@@ -1,0 +1,43 @@
+server:
+  port: 8083
+
+spring:
+  datasource:
+    url: "${SPRING_DATASOURCE_URL:jdbc:mysql://localhost:3306/jlxg?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai}"
+    username: "${SPRING_DATASOURCE_USERNAME:root}"
+    password: "${SPRING_DATASOURCE_PASSWORD:}"
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      initialization-fail-timeout: -1
+      minimum-idle: 0
+      maximum-pool-size: 5
+
+logging:
+  level:
+    org.jinterop: WARN
+    org.openscada: WARN
+
+# OPC 连接配置
+opc:
+  host: "${OPC_HOST:192.168.14.14}"
+  domain: "${OPC_DOMAIN:}"
+  user: "${OPC_USER:administrator}"
+  password: "${OPC_PASSWORD:}"
+  clsid: "${OPC_CLSID:001AAAA6-FB54-4627-84B2-8777379E5868}"
+  heartbeat:
+    enabled: true
+    tag: "工大OPC.写M6.D000_DV"
+    interval-ms: 1000
+  realtime:
+    enabled: true
+    collect-interval-ms: 1000
+    broadcast-port: 50008
+    retry-delay-ms: 5000
+  write-server:
+    enabled: true
+    port: 50009
+    retry-delay-ms: 5000
+  # 接口3.2专用：模型编码与实际OPC点位的映射关系
+  model-tags:
+    final_cooler_temp_control_model: "工大OPC.AO.HIT_11115_SP"
+    another_model_code: "工大OPC.AO.HIT_11116_SP"
